@@ -1,0 +1,98 @@
+fileFormatVersion: 2
+guid: 3e02b3172276d3b44b7cd2e0835df9e1
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Abitacolo
+    100002: Ali
+    100004: Ali2
+    100006: Missili
+    100008: R2D2
+    100010: sostegniShip
+    100012: //RootNode
+    100014: Turbine
+    400000: Abitacolo
+    400002: Ali
+    400004: Ali2
+    400006: Missili
+    400008: R2D2
+    400010: sostegniShip
+    400012: //RootNode
+    400014: Turbine
+    2300000: Abitacolo
+    2300002: Ali
+    2300004: Ali2
+    2300006: Missili
+    2300008: R2D2
+    2300010: sostegniShip
+    2300012: Turbine
+    3300000: Abitacolo
+    3300002: Ali
+    3300004: Ali2
+    3300006: Missili
+    3300008: R2D2
+    3300010: sostegniShip
+    3300012: Turbine
+    4300000: sostegniShip
+    4300002: Turbine
+    4300004: Ali2
+    4300006: R2D2
+    4300008: Missili
+    4300010: Ali
+    4300012: Abitacolo
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .5
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
