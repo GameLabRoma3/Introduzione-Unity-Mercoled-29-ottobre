@@ -8,20 +8,22 @@ public class ShipLocomotion : MonoBehaviour
     public float maxVelocityChange = 10.0f;
     public float rotationSpeed = 3.0f;
     public Transform explosion;
+    public AudioSource ExplosionSound;
     bool alive = true;
     void FixedUpdate()
     {
         if (alive)
         {
-            Vector3 tergetvelocity = (transform.forward * speed * Input.GetAxis("Vertical")) - rigidbody.velocity;
+            Vector3 tergetvelocity = (transform.forward * speed * Input.GetAxis("Jump")) - rigidbody.velocity;
+            Vector3 tergetRotation = new Vector3(-(rotationSpeed / 2) * Input.GetAxis("Vertical"), 0, -rotationSpeed * Input.GetAxis("Horizontal"));
 
             tergetvelocity.x = Mathf.Clamp(tergetvelocity.x, -maxVelocityChange, maxVelocityChange);
             tergetvelocity.z = Mathf.Clamp(tergetvelocity.z, -maxVelocityChange, maxVelocityChange);
-            rigidbody.AddForce(tergetvelocity, ForceMode.VelocityChange);
-            transform.Rotate(0, rotationSpeed * Input.GetAxis("Horizontal"), 0);
-            rigidbody.MoveRotation(Quaternion.Euler(0, transform.rotation.eulerAngles.y, -25 * Input.GetAxis("Horizontal")));
-            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
+            transform.Rotate(tergetRotation);
+            rigidbody.AddForce(tergetvelocity, ForceMode.Force);
+
+            //rigidbody.MoveRotation(Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, -25 * Input.GetAxis("Horizontal")));
         }
     }
     void OnCollisionEnter(Collision col)
@@ -30,5 +32,6 @@ public class ShipLocomotion : MonoBehaviour
         rigidbody.constraints = RigidbodyConstraints.None;
         explosion.gameObject.SetActive(true);
         alive = false;
+        ExplosionSound.Play();
     }
 }
