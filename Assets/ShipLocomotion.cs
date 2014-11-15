@@ -1,37 +1,87 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 [RequireComponent(typeof(Rigidbody))]
 public class ShipLocomotion : MonoBehaviour
 {
-    public float speed = 10.0f;
-    public float maxVelocityChange = 10.0f;
-    public float rotationSpeed = 3.0f;
-    public Transform explosion;
-    public AudioSource ExplosionSound;
-    bool alive = true;
+    public bool Alive = true;
+    public bool EngineEnabled = false;
+    [SerializeField]
+    PCorJoystick ControlsType = PCorJoystick.PC;
+    public float Speed = 14.0f;
+    public float HorizontalrotationSpeed = 2.3f;
+    public float VerticalrotationSpeed = 1.5f;
+    public GameObject explosion;
+    private bool canChangeEngine = true;
+
+
+    void Update()
+    {
+        Debug.Log(" speed: " + Speed);
+        audio.enabled = EngineEnabled;
+    }
+
+
     void FixedUpdate()
     {
-        if (alive)
+        if (Alive)
         {
-            Vector3 tergetvelocity = (transform.forward * speed * Input.GetAxis("Jump")) - rigidbody.velocity;
-            Vector3 tergetRotation = new Vector3(-(rotationSpeed / 2) * Input.GetAxis("Vertical"), 0, -rotationSpeed * Input.GetAxis("Horizontal"));
+            switch (ControlsType)
+            {
+                case PCorJoystick.PC: PCcontrollers();
+                    break;
+                case PCorJoystick.Joystick: JoypadControls();
+                    break;
+            }
+        }
+    }
 
-            tergetvelocity.x = Mathf.Clamp(tergetvelocity.x, -maxVelocityChange, maxVelocityChange);
-            tergetvelocity.z = Mathf.Clamp(tergetvelocity.z, -maxVelocityChange, maxVelocityChange);
+    void Move(bool changeEngine, float coefficienteVelocity = 1f)
+    {
+        if (changeEngine)
+        {
+            EngineEnabled = !EngineEnabled;
+            canChangeEngine = false;
+            Invoke("enableEngineChange", 0.5f);
+        }
+        if (EngineEnabled)
+        {
+            Vector3 tergetvelocity = (transform.forward * Speed * coefficienteVelocity) - rigidbody.velocity;
+            Vector3 tergetRotation = new Vector3(VerticalrotationSpeed * Input.GetAxis("Vertical"), 0,
+                -HorizontalrotationSpeed * Input.GetAxis("Horizontal"));
 
             transform.Rotate(tergetRotation);
             rigidbody.AddForce(tergetvelocity, ForceMode.Force);
-
-            //rigidbody.MoveRotation(Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, -25 * Input.GetAxis("Horizontal")));
         }
     }
+
+    void PCcontrollers()
+    {
+        Move((canChangeEngine && Input.GetKeyDown(KeyCode.Return)), Input.GetAxis("Jump"));
+    }
+
+    void JoypadControls()
+    {
+        Speed += Input.GetAxis("Joypad Throtlle");
+        Move((canChangeEngine && Input.GetAxis("Joystick botton 2") != 0));
+    }
+
+    void enableEngineChange()
+    { canChangeEngine = true; }
+
     void OnCollisionEnter(Collision col)
     {
         rigidbody.useGravity = true;
-        rigidbody.constraints = RigidbodyConstraints.None;
         explosion.gameObject.SetActive(true);
-        alive = false;
-        ExplosionSound.Play();
+        EngineEnabled = false;
+        Alive = false;
     }
+
+    public enum PCorJoystick
+    {
+        PC,
+        Joystick
+    }
+
 }
