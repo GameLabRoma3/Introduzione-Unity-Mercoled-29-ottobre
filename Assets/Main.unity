@@ -2111,6 +2111,7 @@ GameObject:
   - 4: {fileID: 759060901}
   - 33: {fileID: 759060903}
   - 23: {fileID: 759060902}
+  - 65: {fileID: 759060904}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Enemy
@@ -2159,6 +2160,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1769545530}
   m_GameObject: {fileID: 759060900}
   m_Mesh: {fileID: 4300002, guid: 7d756ba7eff726c4bb8558b3bcc91fc6, type: 3}
+--- !u!65 &759060904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 759060900}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.3757677, y: 8.83812332, z: 32.0500488}
+  m_Center: {x: -.0037560463, y: -.00202393625, z: .195889562}
 --- !u!1 &809146128
 GameObject:
   m_ObjectHideFlags: 0
@@ -8290,8 +8303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Alive: 1
-  EngineEnabled: 0
-  ControlsType: 1
+  EngineEnabled: 1
+  ControlsType: 0
   Speed: 15
   HorizontalrotationSpeed: 2.29999995
   VerticalrotationSpeed: 1.5

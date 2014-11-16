@@ -37,7 +37,7 @@ public class ShipLocomotion : MonoBehaviour
         }
     }
 
-    void Move(bool changeEngine, float coefficienteVelocity = 1f)
+    void Move(bool changeEngine)
     {
         if (changeEngine)
         {
@@ -47,7 +47,7 @@ public class ShipLocomotion : MonoBehaviour
         }
         if (EngineEnabled)
         {
-            Vector3 tergetvelocity = (transform.forward * Speed * coefficienteVelocity) - rigidbody.velocity;
+            Vector3 tergetvelocity = (transform.forward * Speed) - rigidbody.velocity;
             Vector3 tergetRotation = new Vector3(VerticalrotationSpeed * Input.GetAxis("Vertical"), 0,
                 -HorizontalrotationSpeed * Input.GetAxis("Horizontal"));
 
@@ -58,7 +58,7 @@ public class ShipLocomotion : MonoBehaviour
 
     void PCcontrollers()
     {
-        Move((canChangeEngine && Input.GetKeyDown(KeyCode.Return)), Input.GetAxis("Jump"));
+        Move((canChangeEngine && Input.GetKeyDown(KeyCode.Return)));
     }
 
     void JoypadControls()
