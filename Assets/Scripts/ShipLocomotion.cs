@@ -9,18 +9,11 @@ public class ShipLocomotion : MonoBehaviour
     public bool EngineEnabled = false;
     [SerializeField]
     PCorJoystick ControlsType = PCorJoystick.PC;
-    public float Speed = 14.0f;
+    public float Speed = 16.0f;
     public float HorizontalrotationSpeed = 2.3f;
     public float VerticalrotationSpeed = 1.5f;
     public GameObject explosion;
     private bool canChangeEngine = true;
-
-
-    void Update()
-    {
-        Debug.Log(" speed: " + Speed);
-        audio.enabled = EngineEnabled;
-    }
 
 
     void FixedUpdate()
@@ -37,8 +30,9 @@ public class ShipLocomotion : MonoBehaviour
         }
     }
 
-    void Move(bool changeEngine)
+    void Move(bool changeEngine, float SpeedIncrease)
     {
+        audio.enabled = EngineEnabled;
         if (changeEngine)
         {
             EngineEnabled = !EngineEnabled;
@@ -47,6 +41,7 @@ public class ShipLocomotion : MonoBehaviour
         }
         if (EngineEnabled)
         {
+            Speed += SpeedIncrease;
             Vector3 tergetvelocity = (transform.forward * Speed) - rigidbody.velocity;
             Vector3 tergetRotation = new Vector3(VerticalrotationSpeed * Input.GetAxis("Vertical"), 0,
                 -HorizontalrotationSpeed * Input.GetAxis("Horizontal"));
@@ -58,17 +53,18 @@ public class ShipLocomotion : MonoBehaviour
 
     void PCcontrollers()
     {
-        Move((canChangeEngine && Input.GetKeyDown(KeyCode.Return)));
+        Move((canChangeEngine && Input.GetKeyDown(KeyCode.Return)), Input.GetAxis("Mouse ScrollWheel"));
     }
 
     void JoypadControls()
     {
-        Speed += Input.GetAxis("Joypad Throtlle");
-        Move((canChangeEngine && Input.GetAxis("Joystick botton 2") != 0));
+        Move((canChangeEngine && Input.GetAxis("Joystick botton 2") != 0), Input.GetAxis("Joypad Throtlle"));
     }
 
     void enableEngineChange()
-    { canChangeEngine = true; }
+    {
+        canChangeEngine = true;
+    }
 
     void OnCollisionEnter(Collision col)
     {
